@@ -67,8 +67,5 @@ class RecipesController < ApplicationController
   def make_ingredients_hash
     @recipe_ingredients = @recipe.recipe_ingredients
     @ingredient_name_hash =  @recipe.ingredients.map {|x| [x.id ,x.name]}.to_h
-    # binding.pry
-  #  @ingredients_hash = @recipe.ingredients.map {|x| [@recipe_ingredients.find_by(ingredient_id: x.id).quantity, x.name]}
-
   end
 end

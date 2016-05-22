@@ -1,27 +1,27 @@
 <%= form_for @recipe do |f| %>
-<%= f.label :name %><br>
-<%= f.text_field :name %><br><br>
-<%= f.label :description %><br>
-<%= f.text_area :description%>
-<% if @recipe.ingredients.exists? %>
-<h3>Current Ingredients</h3>
-<% @recipe.ingredients.each do |ingredient| %>
+  <%= f.label :name %><br>
+  <%= f.text_field :name %><br><br>
+  <%= f.label :description %><br>
+  <%= f.text_area :description%>
+  <% if @recipe.ingredients.exists? %>
+  <h3>Current Ingredients</h3>
+  <% @recipe.ingredients.each do |ingredient| %>
   <%= ingredient.name %>
   <%= ingredient.quantity(@recipe.id) %>
   <%= link_to 'Remove', remove_recipe_ingredient_path(@recipe.id, ingredient.id),
-            data: {:confirm => 'Are you sure?'}, :method => :remove_ingredient %><br>
-<% end %>
-<% end %>
-<h3>Add Ingredients</h3>
-<% Ingredient.all.each do |ingredient| %>
-<% if @recipe.ingredients.exclude?(ingredient) %>
-  <%= label_tag "ingredient_#{ingredient.id}", ingredient.name %>
-  <%= check_box_tag "recipe[ingredients_attributes][][id]", ingredient.id, false, id: "ingredient_#{ingredient.id}" %>
-  <%= label_tag :quantity %>
-  <%= text_field_tag "recipe[ingredients_attributes][][quantity]" %><br>
-<% end %>
-<% end %>
-<p>
-<%= f.submit %>
-</p>
-<% end %>
+  data: {:confirm => 'Are you sure?'}, :method => :remove_ingredient %><br>
+  <% end %>
+  <% end %>
+  <h3>Add Ingredients</h3>
+  <% Ingredient.all.each do |ingredient| %>
+    <% if @recipe.ingredients.exclude?(ingredient) %>
+    <%= label_tag "ingredient_#{ingredient.id}", ingredient.name %>
+    <%= check_box_tag "recipe[ingredients_attributes][][id]", ingredient.id, false, id: "ingredient_#{ingredient.id}" %>
+    <%= label_tag :quantity %>
+    <%= text_field_tag "recipe[ingredients_attributes][][quantity]" %><br>
+    <% end %>
+    <% end %>
+    <p>
+    <%= f.submit %>
+  </p>
+  <% end %>

@@ -6,7 +6,6 @@ class Recipe < ActiveRecord::Base
   def ingredients_attributes=(ingredients_attributes)
     ingredients_attributes.each do |k|
       if (!k["id"].nil? && !k["quantity"].nil? && unique_ingredient?( k["id"].to_i))
-        binding.pry# Not sending unique ingredients, also dependents not destroying
         ingredients = Ingredient.where("id in (?)", k["id"].to_i)
         self.recipe_ingredients.build(ingredient_id: k["id"].to_i, quantity: k["quantity"])
       end
