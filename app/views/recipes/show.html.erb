@@ -1,0 +1,9 @@
+<h1>Recipe#show</h1>
+<strong>Name:</strong> <%= @recipe.name %><br><br>
+<strong>Description:</strong> <%= @recipe.description %>
+<h4>Ingredients</h4>
+<% @recipe_ingredients.each do |ingredient| %>
+<li><%= "#{@ingredient_name_hash[ingredient.ingredient_id]}" %> - <%= ingredient.quantity %></li>
+<% end %>
+<%= link_to 'Edit this recipe', edit_recipe_path(@recipe) %>
+<%= link_to "Delete Recipe", @recipe, method: :delete, data: {confirm: "You sure?"} %>
