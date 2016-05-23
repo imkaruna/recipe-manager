@@ -31,6 +31,7 @@ class IngredientsController < ApplicationController
     @ingredient.update(ingredient_params)
     @ingredient.update_quantity(recipe, params[:ingredient][:quantity])
     redirect_to session[:referrer]
+    session[:referrer].clear
 
   end
 

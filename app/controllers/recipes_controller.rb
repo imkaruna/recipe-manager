@@ -18,7 +18,6 @@ class RecipesController < ApplicationController
     if @recipe.save
       redirect_to recipe_path(@recipe)
     else
-      flash[:notice] = "Error saving the recipe.."
       render 'new'
     end
   end

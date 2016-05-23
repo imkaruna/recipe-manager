@@ -2,12 +2,14 @@ class Recipe < ActiveRecord::Base
   validates :name, presence: true
   has_many :recipe_ingredients, dependent: :destroy
   has_many :ingredients, through: :recipe_ingredients
+  attr_accessor :quantity
 
   def ingredients_attributes=(ingredients_attributes)
-    ingredients_attributes.each do |k|
-      if (!k["id"].nil? && !k["quantity"].nil? && unique_ingredient?( k["id"].to_i))
-        ingredients = Ingredient.where("id in (?)", k["id"].to_i)
-        self.recipe_ingredients.build(ingredient_id: k["id"].to_i, quantity: k["quantity"])
+    ingredients_attributes.each do |key, ingredient_attr|
+      if (!(ingredient_attr.values.any? &:blank?) && unique_ingredient?( ingredient_attr["id"].to_i))
+        self.recipe_ingredients.build(ingredient_id: ingredient_attr["id"].to_i, quantity: ingredient_attr["quantity"])
+      else
+        self.errors.add(:quantity, 'Cannot be blank')
       end
     end
   end
