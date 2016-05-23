@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
   before_action :find_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :make_ingredients_hash, only: [:show, :edit]
   def index
     @recipes = Recipe.all
   end
@@ -13,7 +14,6 @@ class RecipesController < ApplicationController
 
   def create
     @ingredients = Ingredient.all
-    # @ingredient = Ingredient.create(ingredient_params)
     @recipe = Recipe.new(recipe_params)
     if @recipe.save
       redirect_to recipe_path(@recipe)
@@ -24,18 +24,17 @@ class RecipesController < ApplicationController
   end
 
   def show
-    make_ingredients_hash
   end
 
   def edit
-    flash[:notice] = "Successfully created..."
-    make_ingredients_hash
+    @ingredients = @recipe.recipe_ingredients.build
+    session[:referrer]=url_for(params)
   end
 
   def update
-    binding.pry
-    @recipe.update(recipe_params)
-    if @recipe.persisted?
+    # binding.pry
+      @recipe.update(recipe_params)
+      if @recipe.persisted?
       redirect_to recipe_path(@recipe)
     else
       render 'edit'
@@ -56,7 +55,7 @@ class RecipesController < ApplicationController
 
   private
   def recipe_params
-    params.require(:recipe).permit(:name, :description,  :ingredients_attributes => [:id, :quantity, :_destroy])
+    params.require(:recipe).permit(:name, :description, :ingredients_attributes => [:id, :quantity, :_destroy])
   end
 
   def find_recipe
@@ -65,7 +64,6 @@ class RecipesController < ApplicationController
   end
 
   def make_ingredients_hash
-    @recipe_ingredients = @recipe.recipe_ingredients
-    @ingredient_name_hash =  @recipe.ingredients.map {|x| [x.id ,x.name]}.to_h
+    @recipe_ingredients=@recipe.recipe_ingredients.collect {|i| [i.ingredient_id=>[i.ingredient.name, i.quantity]]}.flatten
   end
 end

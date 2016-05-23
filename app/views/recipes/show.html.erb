@@ -2,8 +2,16 @@
 <strong>Name:</strong> <%= @recipe.name %><br><br>
 <strong>Description:</strong> <%= @recipe.description %>
 <h4>Ingredients</h4>
-<% @recipe_ingredients.each do |ingredient| %>
-<li><%= "#{@ingredient_name_hash[ingredient.ingredient_id]}" %> - <%= ingredient.quantity %></li>
+<% @recipe_ingredients.each do |recipe_ingredient| %>
+<li>
+<%= recipe_ingredient.values[0][0] %>
+<%= recipe_ingredient.values[0][1] %>
+<%= link_to 'Edit', edit_recipe_ingredient_path(@recipe.id, recipe_ingredient.keys[0]) %>
+</li>
 <% end %>
-<%= link_to 'Edit this recipe', edit_recipe_path(@recipe) %>
-<%= link_to "Delete Recipe", @recipe, method: :delete, data: {confirm: "You sure?"} %>
+<p>
+
+  <%= link_to 'Edit this recipe', edit_recipe_path(@recipe) %> <br>
+  <%= link_to "Delete Recipe", @recipe, method: :delete, data: {confirm: "You sure?"} %><br>
+  <%= link_to 'Home', root_path %>  
+</p>

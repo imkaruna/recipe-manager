@@ -1,1 +1,5 @@
+<h1>Edit Recipe</h1>
 <%= render 'form' %>
+
+<%= link_to 'Add New Ingredient', new_recipe_ingredient_path(@recipe.id) %>
+<%= link_to 'Home', root_path %>

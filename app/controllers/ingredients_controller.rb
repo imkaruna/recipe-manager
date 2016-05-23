@@ -4,29 +4,50 @@ class IngredientsController < ApplicationController
   end
 
   def new
-    @ingredient = Ingredient.new
+    @recipe = Recipe.find(params[:recipe_id])
+    @ingredient = @recipe.ingredients.build
   end
 
   def create
+    @recipe = Recipe.find(params[:recipe_id])
     @ingredient = Ingredient.create(ingredient_params)
-    if @ingredient.persisted?
-      redirect_to root_path
-    end
+    # binding.pry
+    @recipe.recipe_ingredients.build(ingredient_id: @ingredient.id, quantity: params[:quantity])
+    @recipe.save
+    redirect_to edit_recipe_path(@recipe.id)
+
+  end
+
+  def edit
+    recipe = Recipe.find(params[:recipe_id])
+    @quantity = recipe.recipe_ingredients.find_by(ingredient_id: params[:id]).quantity
+    @ingredient = Ingredient.find(params[:id])
+    # binding.pry
+  end
+
+  def update
+    recipe = Recipe.find(params[:recipe_id])
+    @ingredient = Ingredient.find(params[:id])
+    @ingredient.update(ingredient_params)
+    @ingredient.update_quantity(recipe, params[:ingredient][:quantity])
+    redirect_to session[:referrer]
+
   end
 
   def show
   end
 
-  def delete
-    @recipe = Recipe.find(params[:post_id])
-    @ingredient = Ingredient.find(params[:id])
+  def destroy
+    @recipe = Recipe.find(params[:recipe_id])
+    @ingredient = RecipeIngredient.find_by(ingredient_id: params[:id])
     @ingredient.destroy
+    redirect_to session[:referrer]
 
   end
 
   private
 
   def ingredient_params
-    params.require(:recipe).permit(params[:id], :name)
+    params.require(:ingredient).permit(:name)
   end
 end
