@@ -1,0 +1,8 @@
+<h1>Edit ingredient</h1>
+<%= form_for(@ingredient, :url => recipe_ingredient_path) do |f|%>
+<%= f.label :name %>
+<%= f.text_field :name %><br><br>
+<%= f.label :quantity %>
+<%= f.text_field :quantity, value: "#{@quantity}" %>
+<%= f.submit %>
+<% end %>

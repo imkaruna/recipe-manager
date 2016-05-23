@@ -1,17 +1,68 @@
-<h1>Recipe#show</h1>
-<strong>Name:</strong> <%= @recipe.name %><br><br>
-<strong>Description:</strong> <%= @recipe.description %>
-<h4>Ingredients</h4>
-<% @recipe_ingredients.each do |recipe_ingredient| %>
-<li>
-<%= recipe_ingredient.values[0][0] %>
-<%= recipe_ingredient.values[0][1] %>
-<%= link_to 'Edit', edit_recipe_ingredient_path(@recipe.id, recipe_ingredient.keys[0]) %>
-</li>
-<% end %>
-<p>
+<div>
+  <h1><%= @recipe.name %></h1>
+</div>
+<div class="row">
+  <div class="well">
 
-  <%= link_to 'Edit this recipe', edit_recipe_path(@recipe) %> <br>
-  <%= link_to "Delete Recipe", @recipe, method: :delete, data: {confirm: "You sure?"} %><br>
-  <%= link_to 'Home', root_path %>  
-</p>
+    <div class="row col-md-12">
+      <div class="white-well">
+        <h4>Description</h4>
+        <p>
+          <%= @recipe.description %>
+        </p>
+      </div>
+    </div>
+    <div class="row col-md-12">
+        <div class="white-well col-md-4">
+          <div class="col-md-12">
+            <h4>Ingredients</h4>
+            <% @recipe_ingredients.each do |recipe_ingredient| %>
+            <ul>
+              <li>
+                <%= recipe_ingredient.values[0][0] %>
+                <%= recipe_ingredient.values[0][1] %>
+                <%= link_to 'Edit', edit_recipe_ingredient_path(@recipe.id, recipe_ingredient.keys[0]) %>
+              </li>
+            </ul>
+            <% end %>
+          </div>
+
+        </div>
+        <div class="col-md-5">
+          <div class="white-well col-md-12  instructions-li">
+            <h4>Instructions</h4>
+            <ul>
+              <li>Step 1</li>
+              <li>Step 2</li>
+              <li>Step 3</li>
+              <li>Step 4</li>
+              <li>Step 5</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="col-md-12">
+            <img class="img-responsive"  src="http://placehold.it/350x350">
+            <i>Image name</i>
+          </div>
+        </div>
+
+      </div>
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="col-md-4">
+          <%= link_to "", root_path, class: "glyphicon glyphicon-home btn btn-large btn-success" %>
+        </div>
+        <div class="col-md-4">
+          <%= link_to "", edit_recipe_path(@recipe), class: "glyphicon glyphicon-pencil btn btn-large btn-primary" %>
+        </div>
+        <div class="col-md-4">
+          <%= link_to "", @recipe, method: :delete, data: {confirm: "You sure?"}, class: "glyphicon glyphicon-remove btn btn-large btn-danger" %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
