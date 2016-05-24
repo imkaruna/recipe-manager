@@ -5,7 +5,8 @@ require 'rails/all'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-
+Paperclip.options[:command_path] = "/usr/local/bin/"
+Paperclip.options[:command_path] = "/usr/local/bin/identify"
 module RecipeManager
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -21,6 +22,7 @@ module RecipeManager
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
+
     config.active_record.raise_in_transactional_callbacks = true
   end
 end

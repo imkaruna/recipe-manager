@@ -1,4 +1,7 @@
 class Recipe < ActiveRecord::Base
+  has_attached_file :recipe_image, styles: { medium: "300x300>", thumb: "260x260>" }, default_url: ":style/default.png"
+  validates_attachment_content_type :recipe_image, content_type: /\Aimage\/.*\Z/
+
   validates :name, presence: true
   has_many :recipe_ingredients, dependent: :destroy
   has_many :ingredients, through: :recipe_ingredients

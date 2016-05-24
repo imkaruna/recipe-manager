@@ -30,8 +30,9 @@ class IngredientsController < ApplicationController
     @ingredient = Ingredient.find(params[:id])
     @ingredient.update(ingredient_params)
     @ingredient.update_quantity(recipe, params[:ingredient][:quantity])
-    redirect_to session[:referrer]
-    session[:referrer].clear
+    # redirect_to session[:referrer]
+    # session[:referrer].clear
+    redirect_to recipe_path(recipe)
 
   end
 

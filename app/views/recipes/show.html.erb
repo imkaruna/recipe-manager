@@ -2,7 +2,7 @@
   <h1><%= @recipe.name %></h1>
 </div>
 <div class="row">
-  <div class="well">
+  <div class="dark-well">
 
     <div class="row col-md-12">
       <div class="white-well">
@@ -40,10 +40,10 @@
             </ul>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 white-well">
           <div class="col-md-12">
-            <img class="img-responsive"  src="http://placehold.it/350x350">
-            <i>Image name</i>
+            <%= image_tag @recipe.recipe_image.url, class: "img-responsive" %>
+            <i><%= @recipe.recipe_image_file_name %></i>
           </div>
         </div>
 
