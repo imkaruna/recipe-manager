@@ -13,7 +13,7 @@ class IngredientsController < ApplicationController
     end
     @ingredient = Ingredient.new
     session[:referrer] = request.referer
-    raise request.referer.inspect
+    # raise request.referer.inspect
   end
 
   def create
