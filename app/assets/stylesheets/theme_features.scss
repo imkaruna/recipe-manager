@@ -3,23 +3,47 @@
  * Code licensed under the Apache License v2.0.
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
-
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+@import url(https://fonts.googleapis.com/css?family=Dancing+Script:400,700);
 body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-    background-color: #FFD500;//(255,165,0);
+    padding-top: 60px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    // background-color:rgba(255,255,255,.4);
+    // background-image: url("plate.png");
+    background-color: #C63D0F;
+    background-repeat: no-repeat;
+    background-attachment:local;
+    background-position:top right;
+    background-size: cover;
+    font-family: Raleway;
 }
 
+.list-background {
+  background-color: #555;
+}
 .hero-spacer {
     margin-top: 50px;
+    text-align: center;
+}
+.hero-spacer h1 {
+    font-family: 'Dancing Script';
 }
 
 .hero-feature {
     margin-bottom: 30px;
 }
+.dark-well {
+    @extend .well;
+    background-color: #d3d3d3;
+    color: #fff;
+}
 .white-well {
     @extend .well;
-    background-color: #fff;
+    background-color:rgba(255,255,255,.6);
     color: #555;
+}
+
+.white-well div{
+  opacity: 1.0;
 }
 .instructions-li li{
     list-style: none;

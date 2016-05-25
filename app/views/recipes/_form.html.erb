@@ -1,28 +1,78 @@
 <%= form_for @recipe, html: { multipart: true } do |f| %>
+  <fieldset class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %><br><br>
+    <%= f.text_field :name, class: "form-control", placeholder: "Recipe Name" %>
+  </fieldset>
+  <fieldset class="form-group">
     <%= f.label :description %><br>
-    <%= f.text_area :description, rows: 4 %><br><br>
-    <%= f.label :recipe_image %>
-    <%= f.file_field :recipe_image %>
-    <% if @recipe.ingredients.exists? %>
-        <h3>Current Ingredients</h3>
-            <% @recipe_ingredients.each do |recipe_ingredient| %>
-            <%= recipe_ingredient.values[0][0] %>
-            <%= recipe_ingredient.values[0][1] %>
-            <%= link_to 'Edit', edit_recipe_ingredient_path(@recipe.id, recipe_ingredient.keys[0]) %><br/>
+    <%= f.text_area :description, rows: 2, class: "form-control", placeholder: "Recipe Description" %>
+  </fieldset>
+  <fieldset class="form-group">
+    <%= f.label :instructions %><br>
+    <%= f.text_area :instructions, rows: 10, class: "form-control", placeholder: "Recipe Instructions in Steps" %>
+  </fieldset>
+  <fieldset  class="form-group">
+  <%= f.label :recipe_image %>
+  <%= f.file_field :recipe_image %>
+  </fieldset>
+
+  <% if !@recipe.id.nil? %>
+  <div class="well">
+    <h3>Current Ingredients</h3>
+    <div class="row">
+        <% @recipe.recipe_ingredients.each do |recipe_ingredient| %>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-4">
+                <%= recipe_ingredient.ingredient.name %>
+            </div>
+            <div class="col-md-4">
+              <%= recipe_ingredient.quantity %>
+            </div>
+            <div class="col-md-4">
+              <div class="col-md-2">
+                <%= link_to 'Edit', edit_recipe_ingredient_path(recipe_ingredient.recipe_id, recipe_ingredient.ingredient_id) %>
+              </div>
+              <div class="col-md-2">
+                <%= link_to 'Remove', recipe_ingredient_path(recipe_ingredient.recipe_id, recipe_ingredient.ingredient_id),
+        data: {:confirm => 'Are you sure?'}, :method => :delete %>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
         <% end %>
-    <% end %>
+    </div>
+  </div>
+  <% end %>
+
     <h2>Add Ingredient</h2>
-    <% Ingredient.all.each_with_index do |ingredient,index| %>
-        <% if @recipe.ingredients.exclude?(ingredient) %>
-            <%= label_tag "ingredient_#{ingredient.id}", ingredient.name %>
-            <%= check_box_tag "recipe[ingredients_attributes][#{index}][id]", ingredient.id, false, id: "ingredient_#{ingredient.id}" %>
-            <%= label_tag "ingredient_#{ingredient.id}_quantity", "Quantity" %>
-            <%= text_field_tag "recipe[ingredients_attributes][#{index}][quantity]", " ", id: "recipe_ingredient_quantity_#{ingredient.id}"%><br>
-        <% end %>
-    <% end %><br>
+    <div class="white-well">
+      <% Ingredient.all.each_with_index do |ingredient,index| %>
+          <% if @recipe.ingredients.exclude?(ingredient) %>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-6">
+                  <div class="col-md-3">
+                    <%= label_tag "ingredient_#{ingredient.id}", ingredient.name %>
+                  </div>
+                  <div class="col-md-1">
+                    <%= check_box_tag "recipe[ingredients_attributes][#{index}][id]", ingredient.id, false, id: "ingredient_#{ingredient.id}" %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="col-md-8">
+                    <%= label_tag "ingredient_#{ingredient.id}_quantity", "Quantity" %>
+                    <%= text_field_tag "recipe[ingredients_attributes][#{index}][quantity]", " ", id: "recipe_ingredient_quantity_#{ingredient.id}"%><br>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+          <% end %>
+    </div>
     <p>
-      <%= f.submit %>
+      <%= f.submit 'Submit',  class: "btn btn-primary" %>
     </p>
-<% end %>
+    <% end %>

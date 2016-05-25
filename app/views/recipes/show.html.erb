@@ -16,12 +16,12 @@
         <div class="white-well col-md-4">
           <div class="col-md-12">
             <h4>Ingredients</h4>
-            <% @recipe_ingredients.each do |recipe_ingredient| %>
+            <% @recipe.recipe_ingredients.each do |recipe_ingredient| %>
             <ul>
               <li>
-                <%= recipe_ingredient.values[0][0] %>
-                <%= recipe_ingredient.values[0][1] %>
-                <%= link_to 'Edit', edit_recipe_ingredient_path(@recipe.id, recipe_ingredient.keys[0]) %>
+                <%= recipe_ingredient.ingredient.name %>
+                <%= recipe_ingredient.quantity %>
+                <%= link_to 'Edit', edit_recipe_ingredient_path(recipe_ingredient.recipe_id, recipe_ingredient.ingredient_id) %>
               </li>
             </ul>
             <% end %>
@@ -31,13 +31,9 @@
         <div class="col-md-5">
           <div class="white-well col-md-12  instructions-li">
             <h4>Instructions</h4>
-            <ul>
-              <li>Step 1</li>
-              <li>Step 2</li>
-              <li>Step 3</li>
-              <li>Step 4</li>
-              <li>Step 5</li>
-            </ul>
+            <p>
+              <%= @recipe.instructions %>
+            </p>
           </div>
         </div>
         <div class="col-md-3 white-well">

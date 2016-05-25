@@ -2,8 +2,9 @@
   <div class="main">
     <header class="jumbotron hero-spacer">
       <h1>Recipe Manager!</h1>
+      <%= image_tag("original/pot.png",size: "200x200", alt: "logo") %> 
       <p>A simple recipe management app!</p>
-      <p><%= link_to 'Add New Recipe', new_recipe_path, class: "btn btn-primary btn-large" %></p>
+      <p><%= link_to 'Add New Recipe', new_recipe_path, class: "btn btn-danger btn-lg" %></p>
     </header>
     <div class="row">
       <div class="col-lg-12">
@@ -14,13 +15,13 @@
       <% @recipes.each do |recipe| %>
       <div class="col-md-3 col-sm-6 hero-feature">
         <div class="thumbnail">
-          <%= image_tag recipe.recipe_image.url(:thumb), class: "img-responsive" %>
+          <%= image_tag recipe.recipe_image.url(:medium), class: "img-responsive" %>
           <div class="caption">
             <h3><%= recipe.name %></h3>
 
-            <p><%= truncate(recipe.description, length:15) %>.</p>
+            <p><%= truncate(recipe.description, length:35) %>.</p>
             <p>
-              <%= link_to 'Instructions', recipe_path(recipe), class: "btn btn-primary" %>
+              <%= link_to 'Instructions', recipe_path(recipe), class: "btn btn-danger" %>
             </p>
           </div>
         </div>

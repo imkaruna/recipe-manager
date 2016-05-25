@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :recipes do
-    resources :ingredients, controller: :recipes
+    resources :ingredients
   end
 
-  resources :ingredients, controller: :ingredients
+  resources :ingredients
   root 'recipes#index'
 end

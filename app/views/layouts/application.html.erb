@@ -14,22 +14,51 @@
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
+                    <span class="icon-bar">Test</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href='<%= "#{root_path}" %>'>Recipe Manager</a>
+                <a class="navbar-brand" href='<%= "#{root_path}" %>'>
+                   <i><%= image_tag("original/pot.png",size: "30x30", alt: "logo") %> </i>Recipe Manager
+               </a>
+
+
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a href='<%= "#{root_path}" %>'>All Recipes</a>
-                    </li>
-                    <li>
-                        <a href='<%="#{new_recipe_path}" %>'>Add New Recipe</a>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Recipes Menu <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href='<%="#{recipes_path}" %>'>All Recipes</a></li>
+                      <li><a href='<%="#{new_recipe_path}" %>'>Add New Recipe</a></li>
+
+                    </ul>
+                  </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ingredients Menu <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href='<%="#{ingredients_path}" %>'>Manage Ingredients</a></li>
+                        <li><a href='<%="#{new_ingredient_path}" %>'>Add New Ingredient</a></li>
+                      </ul>
                     </li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                  <% if user_signed_in? %>
+                  <li><p class="navbar-text">Signed in as <%= current_user.email %></p></li>
+                  <li>
+                    <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+                  </li>
+                  <% else %>
+                    <li>
+                      <%= link_to('Register', new_user_registration_path, class: "btn btn-default")  %>
+                    </li>
+                    <li>
+                      <%= link_to('Login', new_user_session_path)  %>
+                    </li>
+                  <% end %>
+                </ul>
+
             </div>
             <!-- /.navbar-collapse -->
         </div>
