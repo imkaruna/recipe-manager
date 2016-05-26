@@ -8,14 +8,15 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = Recipe.new
-    @ingredient = @recipe.ingredients.build
-    # binding.pry
+    5.times do |i|
+      @ingredient = @recipe.ingredients.build
+    end
     @ingredients = Ingredient.all
   end
 
   def create
     @ingredients = Ingredient.all
-    @recipe = Recipe.create!(recipe_params)
+    @recipe = Recipe.create(recipe_params)
     if @recipe.persisted?
       redirect_to recipe_path(@recipe)
     else
@@ -30,7 +31,7 @@ class RecipesController < ApplicationController
   end
 
   def update
-    # raise params.inspect
+    # raise recipe_params.inspect
     @recipe.update!(recipe_params)
     if @recipe.persisted?
       redirect_to recipe_path(@recipe)
@@ -39,12 +40,6 @@ class RecipesController < ApplicationController
     end
   end
 
-  def remove
-    @recipe = Recipe.find(params[:recipe_id])
-    @ingredient = @recipe.recipe_ingredients.find_by(ingredient_id: params[:id])
-    @ingredient.destroy
-    redirect_to edit_recipe_path(@recipe)
-  end
 
   def destroy
     @recipe.destroy
@@ -53,7 +48,7 @@ class RecipesController < ApplicationController
 
   private
   def recipe_params
-    params.require(:recipe).permit(:name, :description,:instructions, :recipe_image, :ingredients_attributes => [:id, :quantity, :_destroy])
+    params.require(:recipe).permit(:name, :description,:instructions, :recipe_image, :recipe_ingredients_attributes => [:id, :quantity, :_destroy], :ingredients_attributes => [:id, :name, :quantity, :_destroy])
   end
 
   def find_recipe
@@ -65,11 +60,4 @@ class RecipesController < ApplicationController
       return @recipe, @ingredient
     end
   end
-
-  # def make_ingredients_hash
-  #   # binding.pry
-  #   @recipe.recipe_ingredients.collect {|i| [i.ingredient.name, i.quantity]}
-  #
-  #   # @recipe_ingredients=@recipe.recipe_ingredients.collect {|i| [i.ingredient_id=>[i.ingredient.name, i.quantity]]}.flatten
-  # end
 end

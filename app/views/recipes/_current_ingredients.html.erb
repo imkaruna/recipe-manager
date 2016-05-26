@@ -1,0 +1,30 @@
+<% if !@recipe.id.nil? %>
+ <div class="well">
+   <h3>Current Ingredients</h3>
+   <div class="row">
+       <% @recipe.recipe_ingredients.each do |recipe_ingredient| %>
+       <div class="row">
+         <div class="col-md-12">
+           <div class="col-md-4">
+               <%= recipe_ingredient.ingredient.name %>
+           </div>
+           <div class="col-md-4">
+             <%= recipe_ingredient.quantity %>
+           </div>
+           <div class="col-md-4">
+             <div class="col-md-2">
+                <%= link_to 'Edit', edit_recipe_ingredient_path(recipe_ingredient.recipe_id, recipe_ingredient.ingredient_id) %>
+              </div>
+             <div class="col-md-2">
+               <%= link_to 'Remove', recipe_ingredient_path(recipe_ingredient.recipe_id, recipe_ingredient.ingredient_id),
+       data: {:confirm => 'Are you sure?'}, :method => :delete %>
+             </div>
+
+           </div>
+         </div>
+
+       </div>
+       <% end %>
+   </div>
+ </div>
+ <% end %>

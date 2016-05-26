@@ -1,13 +1,13 @@
 class Ingredient < ActiveRecord::Base
-  validates :name, uniqueness: true
+  validates :name, uniqueness: true, presence: true
   attr_accessor :quantity
+  # attr_reader :name
 
   has_many :recipe_ingredients, dependent: :destroy
   has_many :recipes, through: :recipe_ingredients
 
-  def update_quantity(recipe, quantity)
-    recipe_with_this_ingredient = self.recipe_ingredients.find_or_create_by(recipe_id: recipe.id)
-    recipe_with_this_ingredient.quantity = quantity
-    recipe_with_this_ingredient.save
+  def quantity_for_recipe(recipe_id)
+    # binding.pry
+    self.recipe_ingredients.find_by(recipe_id: recipe_id).quantity
   end
 end

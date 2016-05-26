@@ -1,28 +1,26 @@
 <h1>Add New Ingredient</h1>
 <% if params[:recipe_id].nil? %>
-  <%= form_for @ingredient do |f|%>
-  <fieldset class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control" %>
-  </fieldset>
-  <p>
-    <%= f.submit 'Create Ingredient', class: "btn btn-primary" %>
-  </p>
-  <% end %>
+      <%= form_for @ingredient do |f|%>
+      <fieldset class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control", id: "ingredientName" %>
+      </fieldset>
+      <p>
+        <%= f.submit 'Create Ingredient', class: "btn btn-primary", id: 'createIngredient' %>
+      </p>
+      <% end %>
   <% else %>
-
-  <%= form_for @ingredient do |f|%>
-  <fieldset class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control" %>
-  </fieldset>
-  <fieldset class="form-group">
-    <%= label_tag :quantity %>
-    <%= text_field_tag :quantity,'',class: "form-control" %>
-  </fieldset>
-  <p>
-    <%= f.submit 'Create Ingredient', class: "btn btn-primary" %>
-  </p>
-  <% end %>
-
+  <%= form_for @ingredient,remote: true do |f|%>
+      <fieldset class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+      </fieldset>
+      <fieldset class="form-group">
+        <%= label_tag :quantity %>
+        <%= text_field_tag :quantity,'',class: "form-control" %>
+      </fieldset>
+      <p>
+        <%= f.submit 'Create Ingredient', class: "btn btn-primary", id: 'createIngredient' %>
+      </p>
+      <% end %>
 <% end %>

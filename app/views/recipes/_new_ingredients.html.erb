@@ -1,0 +1,9 @@
+<%= f.fields_for :ingredients do |ff| %>
+  <div>
+    <%= ff.label :name %>
+    <%= ff.text_field :name, value: " " %>
+
+    <%= ff.label :quantity %>
+    <%= ff.text_field :quantity, value: " " %>
+  </div>
+<% end %>

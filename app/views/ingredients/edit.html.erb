@@ -1,27 +1,27 @@
 <h1>Edit ingredient</h1>
 <% if !params[:recipe_id].nil? %>
-<%= form_for(@ingredient, :url => recipe_ingredient_path) do |f|%>
-<fieldset class="form-group">
-  <%= f.label :name %>
-  <%= f.text_field :name, class: "form-control" %>
-</fieldset>
-<fieldset class="form-group">
-  <%= f.label :quantity %>
-  <%= f.text_field :quantity, value: "#{@quantity}", class: "form-control" %>
-</fieldset>
-<p>
-  <%= f.submit 'Update Ingredient', class: "btn btn-primary" %>
-</p>
-<% end %>
+      <%= form_for(@ingredient, :url => recipe_ingredient_path) do |f|%>
+        <fieldset class="form-group">
+            <%= f.label :name %>
+            <%= f.text_field :name, class: "form-control" %>
+        </fieldset>
+        <fieldset class="form-group">
+            <%= f.label :quantity %>
+            <%= f.text_field :quantity, value: "#{@quantity}", class: "form-control" %>
+        </fieldset>
+        <p>
+            <%= f.submit 'Update Ingredient', class: "btn btn-primary" %>
+        </p>
+      <% end %>
 <% else %>
-<%= form_for @ingredient do |f|%>
-<fieldset class="form-group">
-  <%= f.label :name %>
-  <%= f.text_field :name, class: "form-control" %>
-</fieldset>
-<p>
-  <%= f.submit 'Submit', class: "btn btn-primary" %>
-</p>
-<% end %>
+      <%= form_for @ingredient do |f|%>
+        <fieldset class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: "form-control" %>
+        </fieldset>
+        <p>
+          <%= f.submit 'Submit', class: "btn btn-primary" %>
+        </p>
+      <% end %>
 <% end %>
 <%= link_to "", @ingredient, method: :delete, data: {confirm: "You sure?"}, class: "glyphicon glyphicon-remove btn btn-danger" %>

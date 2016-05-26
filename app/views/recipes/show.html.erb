@@ -21,7 +21,6 @@
               <li>
                 <%= recipe_ingredient.ingredient.name %>
                 <%= recipe_ingredient.quantity %>
-                <%= link_to 'Edit', edit_recipe_ingredient_path(recipe_ingredient.recipe_id, recipe_ingredient.ingredient_id) %>
               </li>
             </ul>
             <% end %>

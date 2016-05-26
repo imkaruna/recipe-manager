@@ -8,8 +8,18 @@ class Recipe < ActiveRecord::Base
   attr_accessor :quantity
 
   def ingredients_attributes=(ingredients_attributes)
+    # binding.pry
     ingredients_attributes.each do |key, ingredient_attr|
-      if (!(ingredient_attr.values.any? &:blank?) && unique_ingredient?( ingredient_attr["id"].to_i))
+      if (!(ingredient_attr.values.any? &:blank?))
+        ingredient = Ingredient.find_or_create_by(name: ingredient_attr["name"])
+        self.recipe_ingredients.build(ingredient_id: ingredient.id,quantity: ingredient_attr["quantity"])
+      end
+    end
+  end
+
+  def recipe_ingredients_attributes=(recipe_ingredients_attributes)
+    recipe_ingredients_attributes.each do |key, ingredient_attr|
+      if (!(ingredient_attr.values.any? &:blank?))
         self.recipe_ingredients.build(ingredient_id: ingredient_attr["id"].to_i, quantity: ingredient_attr["quantity"])
       else
         self.errors.add(:quantity, 'Cannot be blank')
@@ -17,12 +27,4 @@ class Recipe < ActiveRecord::Base
     end
   end
 
-  private
-  def unique_ingredient?(ingredient_id)
-    if self.recipe_ingredients.include?(ingredient_id)
-      false
-    else
-      true
-    end
-  end
 end
