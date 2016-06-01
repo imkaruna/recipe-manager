@@ -1,7 +1,7 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :show, :edit, :update, :remove, :destroy]
   before_action :find_recipe, only: [:show, :edit, :update, :destroy]
-  # before_action :make_ingredients_hash, only: [:show, :edit, :update]
+  
   def index
     @recipes = Recipe.all
   end
@@ -20,6 +20,9 @@ class RecipesController < ApplicationController
     if @recipe.persisted?
       redirect_to recipe_path(@recipe)
     else
+      5.times do |i|
+        @ingredient = @recipe.ingredients.build
+      end
       render 'new'
     end
   end
