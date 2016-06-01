@@ -27,4 +27,9 @@ class Recipe < ActiveRecord::Base
     end
   end
 
+  def self.recently_added_recipes
+    #binding.pry
+    Recipe.last(5).reverse
+  end
+
 end
