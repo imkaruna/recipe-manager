@@ -3,7 +3,12 @@ class IngredientsController < ApplicationController
   before_action :find_ingredient, only: [:show, :edit, :update, :destroy]
   #
   def index
-    @ingredients = Ingredient.all
+    if params[:recipe_id].nil?
+      @ingredients = Ingredient.all
+    else
+      @recipe = Recipe.find(params[:recipe_id])
+      @ingredients = @recipe.ingredients
+    end
   end
   #
   def new
