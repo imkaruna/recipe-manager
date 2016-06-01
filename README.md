@@ -1,6 +1,5 @@
 == RECIPE MANAGER APP using Ruby on Rails
 
-introduction, install guide, contributor guide, link to license
 ## Introduction
 This is a simple Recipe Manager App, built with Ruby on Rails, where you can store the recipes you like.
 
