@@ -61,3 +61,38 @@
 
   </div>
 </div>
+<div class="row">
+  <div class="well">
+    <h2>Comments</h2>
+    <% if !@recipe.comments.empty? %>
+      <% @recipe.comments.each do |comment| %>
+      <p>
+        <%= comment.comment_text %> by
+        <bold><%= comment.user_id %></bold>
+      </p>
+      <% end %>
+    <% end %>
+    <%= form_for(@comment) do |f| %>
+      <% if @comment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+          <ul>
+            <% @comment.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+        <%= f.hidden_field :recipe_id, :value => @recipe.id %>
+        <%= f.label :comment_text %>
+        <%= f.text_area :comment_text, class: 'form-control', required: true %>
+      </div>
+
+      <%= f.submit class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

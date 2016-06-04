@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601205158) do
+ActiveRecord::Schema.define(version: 20160603181747) do
+
+  create_table "comments", force: :cascade do |t|
+    t.text    "comment_text"
+    t.integer "user_id"
+    t.integer "recipe_id"
+  end
 
   create_table "ingredients", force: :cascade do |t|
     t.string   "name"
@@ -37,6 +43,14 @@ ActiveRecord::Schema.define(version: 20160601205158) do
     t.integer  "recipe_image_file_size"
     t.datetime "recipe_image_updated_at"
     t.text     "instructions"
+  end
+
+  create_table "user_comments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.integer  "recipe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
