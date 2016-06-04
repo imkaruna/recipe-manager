@@ -88,7 +88,7 @@
       <div class="form-group">
         <%= f.hidden_field :user_id, :value => current_user.id %>
         <%= f.hidden_field :recipe_id, :value => @recipe.id %>
-        <%= f.label :comment %>
+        <h4><%= f.label :add_comment %></h4>
         <%= f.text_area :comment_text, class: 'form-control', required: true %>
       </div>
 
