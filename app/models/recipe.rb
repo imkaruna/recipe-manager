@@ -7,6 +7,9 @@ class Recipe < ActiveRecord::Base
   has_many :ingredients, through: :recipe_ingredients
   attr_accessor :quantity
 
+  has_many :user_comments
+  has_many :comments, through: :user_comments
+
   def ingredients_attributes=(ingredients_attributes)
     # binding.pry
     ingredients_attributes.each do |key, ingredient_attr|
