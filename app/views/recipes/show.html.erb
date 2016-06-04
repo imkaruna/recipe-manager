@@ -67,8 +67,8 @@
     <% if !@recipe.comments.empty? %>
       <% @recipe.comments.each do |comment| %>
       <p>
-        <%= comment.comment_text %> by
-        <bold><%= comment.user_id %></bold>
+        <%= comment.comment_text %><b>by
+      <%= comment.user_id %></b>
       </p>
       <% end %>
     <% end %>
@@ -88,7 +88,7 @@
       <div class="form-group">
         <%= f.hidden_field :user_id, :value => current_user.id %>
         <%= f.hidden_field :recipe_id, :value => @recipe.id %>
-        <%= f.label :comment_text %>
+        <%= f.label :comment %>
         <%= f.text_area :comment_text, class: 'form-control', required: true %>
       </div>
 

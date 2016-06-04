@@ -29,6 +29,7 @@ class RecipesController < ApplicationController
   end
 
   def show
+    @comment = @recipe.comments.build
   end
 
   def edit
@@ -43,7 +44,6 @@ class RecipesController < ApplicationController
       render 'edit'
     end
   end
-
 
   def destroy
     @recipe.destroy
