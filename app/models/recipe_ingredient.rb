@@ -3,7 +3,4 @@ class RecipeIngredient < ActiveRecord::Base
   belongs_to :recipe
   belongs_to :ingredient
 
-  def ingredient_name
-    binding.pry
-  end
 end
