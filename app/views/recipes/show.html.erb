@@ -67,8 +67,10 @@
     <% if !@recipe.comments.empty? %>
       <% @recipe.comments.each do |comment| %>
       <p>
-        <%= comment.comment_text %><b>by
-      <%= comment.user_id %></b>
+        <%= comment.comment_text %>
+        <b> by
+          <%= comment.user["email"] %>
+        </b>
       </p>
       <% end %>
     <% end %>

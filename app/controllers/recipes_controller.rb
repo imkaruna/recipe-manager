@@ -5,6 +5,7 @@ class RecipesController < ApplicationController
   def index
     @recipes = Recipe.all
     @recent_recipes = Recipe.recently_added_recipes
+
   end
 
   def new
@@ -29,14 +30,18 @@ class RecipesController < ApplicationController
   end
 
   def show
-    @comment = @recipe.comments.build
+    @comments = @recipe.comments
+    @comment = current_user.comments.build
+    respond_to do |format|
+      format.html
+      format.json { render :json => @recipe.to_json(:include => {:comments => {:only => [:comment_text, :user_id]}}) }
+    end
   end
 
   def edit
   end
 
   def update
-    # raise recipe_params.inspect
     @recipe.update!(recipe_params)
     if @recipe.persisted?
       redirect_to recipe_path(@recipe)

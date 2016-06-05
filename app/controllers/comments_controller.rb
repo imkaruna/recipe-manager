@@ -7,14 +7,18 @@ class CommentsController < ApplicationController
   end
 
   def new
-    @comment = @recipe.comments.build
+    @comment = current_user.comments.build
   end
 
   def create
-    # raise params.inspect
     @recipe = Recipe.find(params[:comment][:recipe_id].to_i)
-    @recipe.comments.create(comment_params)
+    @comment = current_user.comments.create(comment_params)
+    if @comment.persisted?
+      @recipe.comments << @comment
       redirect_to recipe_path(@recipe)
+    else
+      flash[:notice] = "Not created..."
+    end
   end
 
   private
@@ -30,7 +34,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:user_id, :comment_text)
+    params.require(:comment).permit(:user_id, :comment_text, :recipe_id)
   end
 
 end
