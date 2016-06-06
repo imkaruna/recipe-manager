@@ -12,12 +12,12 @@ class CommentsController < ApplicationController
 
   def create
     @recipe = Recipe.find(params[:comment][:recipe_id].to_i)
-    @comment = current_user.comments.create(comment_params)
-    if @comment.persisted?
-      @recipe.comments << @comment
-      redirect_to recipe_path(@recipe)
-    else
-      flash[:notice] = "Not created..."
+    @comment = current_user.comments.build(comment_params)
+    @recipe.comments << @comment
+    respond_to do |format|
+      format.html { redirect_to recipe_path(@recipe)  }
+      format.json { render :json => {:comment_text => @comment.comment_text,
+                                  :user_email => current_user.email }  }
     end
   end
 

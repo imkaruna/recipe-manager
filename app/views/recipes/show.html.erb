@@ -64,17 +64,19 @@
 <div class="row">
   <div class="well">
     <h2>Comments</h2>
-    <% if !@recipe.comments.empty? %>
-      <% @recipe.comments.each do |comment| %>
-      <p>
-        <%= comment.comment_text %>
-        <b> by
-          <%= comment.user["email"] %>
-        </b>
-      </p>
+    <div id="comment">
+      <% if !@recipe.comments.empty? %>
+        <% @recipe.comments.each do |comment| %>
+        <blockquote>
+          <%= comment.comment_text %>
+          <p class="comment_by"> by
+            <%= comment.user["email"] %>
+          </p>
+        </blockquote>
+        <% end %>
       <% end %>
-    <% end %>
-    <%= form_for(@comment) do |f| %>
+    </div>
+    <%= form_for @comment, html: {id: 'comment_form'}, remote: true  do |f| %>
       <% if @comment.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
@@ -94,7 +96,7 @@
         <%= f.text_area :comment_text, class: 'form-control', required: true %>
       </div>
 
-      <%= f.submit class: 'btn btn-primary' %>
+      <%= f.submit class: 'btn btn-primary', id: 'submit_comment' %>
     <% end %>
   </div>
 </div>
