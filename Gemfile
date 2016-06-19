@@ -28,7 +28,7 @@ gem "paperclip"
 
 gem 'devise'
 # Gem for authentication
-
+gem 'bower-rails'
 gem 'omniauth-facebook'
 # Gem for omniauth facebook authentication
 
