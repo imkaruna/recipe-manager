@@ -13,18 +13,22 @@
     </div>
     <div class="row text-center">
       <% @recent_recipes.each do |recipe| %>
-      <div class="col-md-3 col-sm-6 hero-feature">
+      <div class="col-md-3 col-sm-6 hero-feature recipe-card"  data-id="<%= recipe.id %>">
         <div class="thumbnail">
           <%= image_tag recipe.recipe_image.url(:medium), class: "img-responsive" %>
-          <div class="caption">
+          <div class="caption recipe-details">
             <h3><%= recipe.name %></h3>
-
-            <p><%= truncate(recipe.description, length:35) %>.</p>
-            <p>
-              <%= link_to 'Instructions', recipe_path(recipe), class: "btn btn-danger" %>
-            </p>
-          </div>
+            <div class="no-display" id="recipe-info-<%= recipe.id %>">
+                <p><%= truncate(recipe.description, length:35) %>.</p>
+                <p>
+                  <%= link_to 'Instructions', recipe_path(recipe), class: "btn btn-danger"%>
+                </p>
+                <p>
+                  <span class="commentsNum_<%= recipe.id%>"></span>
+                </p>
+            </div>
         </div>
+      </div>
       </div>
       <% end %>
     </div>
@@ -43,7 +47,7 @@
 
             <p><%= truncate(recipe.description, length:35) %>.</p>
             <p>
-              <%= link_to 'Instructions', recipe_path(recipe), class: "btn btn-danger" %>
+              <%= link_to 'Instructions', recipe_path(recipe), class: "btn btn-danger recipe-details"%>
             </p>
           </div>
         </div>

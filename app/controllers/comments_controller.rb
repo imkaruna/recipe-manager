@@ -7,14 +7,18 @@ class CommentsController < ApplicationController
   end
 
   def new
-    @comment = @recipe.comments.build
+    @comment = current_user.comments.build
   end
 
   def create
-    # raise params.inspect
     @recipe = Recipe.find(params[:comment][:recipe_id].to_i)
-    @recipe.comments.create(comment_params)
-      redirect_to recipe_path(@recipe)
+    @comment = current_user.comments.build(comment_params)
+    @recipe.comments << @comment
+    respond_to do |format|
+      format.html { redirect_to recipe_path(@recipe)  }
+      format.json { render :json => {:comment_text => @comment.comment_text,
+                                  :user_email => current_user.email }  }
+    end
   end
 
   private
@@ -30,7 +34,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:user_id, :comment_text)
+    params.require(:comment).permit(:user_id, :comment_text, :recipe_id)
   end
 
 end
